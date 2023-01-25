@@ -1,0 +1,74 @@
+.footer {
+  background-color: rgb(107, 116, 130);
+  z-index: -1;
+  white-space: nowrap;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-top: 40px;
+  padding: 0px 15px;
+  height: 80px;
+}
+
+.menu-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 250px;
+  height: 390px;
+  background: white;
+  border-radius: 0px 0px 0px 30px;
+  z-index: 100;
+}
+
+.menu-list {
+  position: absolute;
+  right: 0px;
+  top: 0;
+  padding: 100;
+  gap: 50;
+  color: orange;
+  z-index: 100;
+}
+
+.menu-button {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 20.5px;
+  right: 23px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  z-index: 100;
+}
+
+.log-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 100vmax;
+  padding: 3px 15px;
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: 0.15s;
+  border: 3px solid white;
+}
+
+.log-button:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+}
+
+.contact-icon {
+  border: 3px solid white;
+  border-radius: 100vmax;
+  height: 50px;
+  width: 50px;
+  transition: 0.3s;
+}
+
+.contact-icon:hover {
+  transform: scale(1.05);
+  background-color: rgba(255, 255, 255, 0.3);
+}

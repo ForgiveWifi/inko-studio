@@ -1,0 +1,94 @@
+.input-field {
+  color: rgba(0, 0, 0, 0.6);
+  border: 3px solid #FF9244;
+  border-radius: 10px;
+  text-indent: 10px;
+  padding-right: 5px;
+  font-size: 14px;
+	width: 100%;
+  height: 45px;
+  margin-bottom: 5px
+}
+
+.input-field:focus {
+  outline: 0;
+}
+
+.text-area {
+  color: rgba(0, 0, 0, 0.6);
+  border: 3px solid #FF9244;
+  border-radius: 10px;
+  resize: none;
+  width: 100%;
+  height: 15vh;
+  padding: 5px 8px;
+  overflow: hidden;
+}
+
+.text-area:focus {
+  outline: 0;
+}
+
+.top-button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	user-select: none;
+  width: 50px;
+	height: 50px;
+	margin-top: 25px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	background-color: transparent;
+	border: 4px solid white;
+	border-radius: 50%;
+	transition: 200ms;
+
+}
+
+.top-button svg {
+	fill: white;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.top-button:before {
+	content: 'Back to Top';
+	position: absolute;
+	transform: translateX(-50%) translateY(30px);
+	font-size: 15px;
+	transition: 200ms;
+	color: transparent;
+	font-weight: bold;
+}
+
+.top-button:hover {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+	width: 55px;
+	height: 55px;
+}
+
+.top-button:focus {
+	outline: none;
+}
+
+.top-button:hover::before {
+	color: white;
+}
+
+.top-button:hover svg {
+	animation: bounce 2s infinite linear;
+}
+
+@keyframes bounce {
+	0% {transform: translateX(-50%) translateY(-50%)}
+	25% {transform: translateX(-50%) translateY(-65%)}
+	50% {transform: translateX(-50%) translateY(-50%)}
+	75% {transform: translateX(-50%) translateY(-35%)}
+	100% {transform: translateX(-50%) translateY(-50%)}
+}
