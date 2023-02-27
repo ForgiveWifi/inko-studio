@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { scale } from "../../lib/functions";
 
-function useTag(size, ref, pallet) {
-  const [image, setImage] = useState(null)
+function useTag(id, ref, pallet, art) {
+
+  const [image, setImage] = useState(art)
   const [dimensions, setDimensions] = useState(null)
   const [loaded, setLoaded] = useState(false)
 
@@ -19,14 +20,14 @@ function useTag(size, ref, pallet) {
       const ratio = scale(w, h, pallet)
 
       setDimensions({
-        width: w * ratio, 
+        width: w * ratio,
         height: h * ratio
       })
     }
-  }, [loaded, size])
-  
+  }, [loaded, id])
 
-  return ({ image, setImage, dimensions, setLoaded, clear }); 
+
+  return ({ image, setImage, dimensions, setLoaded, clear });
 }
 
 export default useTag;

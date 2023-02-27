@@ -1,20 +1,29 @@
 import HorzDivider from "./HorzDivider";
+import { DeleteIcon } from "./Icons";
 import MyModal from "./MyModal";
 
-function DeleteModal({text, open, cancel, confirm}) {
+function DeleteModal({ text, open, cancel, confirm, right, children }) {
   return (
     <>
-      <MyModal open={open}>
-        <div className="flexbox-column-start" style={{ width: 275}}>
-          <h3>Delete {text}?</h3>
-          <HorzDivider margin="10px 0px"/>
-          <div className="flexbox-row margin-left" style={{ gap: 5, marginTop: 5}}>
-            <button onClick={cancel} style={{ padding: "2px 6px" }}>cancel</button>
-            <button onClick={confirm} className="flexbox margin-left radius5 red-background" style={{ padding: "2px 6px" }}>
-              delete
-            </button>
+      <MyModal open={open} zIndex={102}>
+        <div className="flexbox-column-start" style={{ width: 275 }}>
+          <div className="flexbox-row full-width">
+            <h3>Delete {text}?</h3>
+            {
+              right ?
+                <div className="margin-left">
+                  {right}
+                </div> :
+                null
+            }
           </div>
-        </div> 
+          <HorzDivider margin="5px 0px 0px" />
+          {children}
+          <div className="flexbox-row margin-left" style={{ gap: 5, marginTop: 15 }}>
+            <button onClick={cancel} className="background1 radius5" style={{ padding: "0px 10px", height: 30 }}>cancel</button>
+            <DeleteIcon onClick={confirm} />
+          </div>
+        </div>
       </MyModal>
     </>
   );

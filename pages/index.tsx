@@ -9,14 +9,14 @@ import ScrollButton from "../components/home/ScrollButton"
 
 export default function Home() {
   return (
-    <> 
+    <>
       <HomePage />
       <Production />
       <HomeProducts />
       <Design />
       {/* <CreateAccount /> */}
       <ContactForm />
-      <ScrollButton /> 
+      <ScrollButton />
     </>
   )
 }

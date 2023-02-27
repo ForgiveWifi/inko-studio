@@ -1,19 +1,25 @@
+import NoBox from "../ui/NoBox";
 import DesignBox from "./DesignBox";
 
-function DesignList({designs}) {
+function DesignList({ design }) {
   return (
     <>
-      <h3 className="full-width" style={{ marginBottom: 10}}>Design List</h3>
-      <div className="product-grid" style={{}}>
-        {
-          designs.map((design, i) => {
-            return (
-              <DesignBox key={i} design={design}/>
-            )
-          })
-        }
-        {designs.length === 1 ? <div></div> : null}
-      </div>
+      <h3 className="full-width" style={{ marginBottom: 10 }}>IMAGES</h3>
+      {
+        design ?
+          <div className="product-grid" style={{}}>
+            {
+              design.map((value, i) => {
+                return (
+                  <DesignBox key={i} design={value} />
+                )
+              })
+            }
+            {design.length === 1 ? <div></div> : null}
+          </div> :
+          <NoBox text="no designs" />
+      }
+
     </>
   );
 }

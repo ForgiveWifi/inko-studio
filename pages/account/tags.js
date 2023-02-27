@@ -11,59 +11,64 @@ import AddIcon from '@mui/icons-material/Add';
 import Heading from '../../components/ui/Heading';
 import DeleteTag from '../../components/tags/DeleteTag';
 import MyModal from '../../components/ui/MyModal';
+import DeleteModal from "../../components/ui/DeleteModal"
 import EditTag from '../../components/tags/EditTag';
-import DeleteModal from '../../components/ui/DeleteModal';
+import useRefresh from "../../components/ui/useRefresh"
+import useEdit from "../../components/ui/useEdit"
+import useRemove from "../../components/ui/useRemove"
+import PalletDimensions from '../../components/ui/PalletDimensions';
 
-function Tags() { 
+function Tags() {
 
+  const [tag, setTag] = useState(null)
   const [tags, setTags] = useState(null)
   const [add, setAdd] = useState(false)
-  const [remove, setRemove] = useState(null)
-  const [edit, setEdit] = useState(null)
-  const [change, setChange] = useState(false)
+
+  const { edit, isEdit, openEdit, closeEdit } = useEdit()
+  const { remove, isRemove, openRemove, closeRemove } = useRemove()
+  const { change, refresh } = useRefresh()
   const [loading, setLoading] = useState(false)
 
-  const available_sizes = ["S", "M", "L", "XL"]
-  const sizes = tags?.map((tag) => tag.size)
-  const missingTags = available_sizes.filter((size) => !sizes?.includes(size))
-
   useEffect(() => {
-    fetchTags()
-    async function fetchTags() {
+    fetchTag()
+    async function fetchTag() {
       try {
         setLoading(true)
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/tags`)
-        setTags(res.data)
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/tag`)
+        setTag(res.data)
         setLoading(false)
       }
       catch (err) {
-        showError("server-error", `Server error - tags`, "Contact Us!")
+        showError("server-error", `Server error - tags`, "Contact us!")
       }
     }
   }, [change])
 
-  function toggleChange() {
-    setChange(!change)
-  }
+  useEffect(() => {
+    fetchTags()
+    async function fetchTags() {
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/tags`)
+      setTags(data)
+      console.log("fetch")
+    }
+  }, [])
 
   return (
     <>
-      { loading && <Loading /> }
+      <Loading loading={loading} />
       <div className='flexbox-column full-width'>
-        <Heading text="Neck Tags" />
+        <Heading text="Tags" />
         <div className='full-width'>
-          { missingTags.length !== 0 ? <Button onClick={() => setAdd(true)} leftIcon={<AddIcon/>} uppercase>New tag</Button> : null}
+          <Button onClick={() => setAdd(true)} leftIcon={<AddIcon />} uppercase>New tag</Button>
         </div>
-        <TagList tags={tags} toggleChange={toggleChange} setRemove={setRemove} setEdit={setEdit}/>
+        <TagList tags={tag} openEdit={openEdit} openRemove={openRemove} />
         <MyModal open={add} size="sm">
-          <CloseButton onClick={() => setAdd(false)}/>
-          <AddTag missingTags={missingTags} toggleChange={toggleChange} close={() => setAdd(false)}/> 
+          <CloseButton onClick={() => setAdd(false)} />
+          <AddTag tags={tags} refresh={refresh} close={() => setAdd(false)} />
         </MyModal>
-        <MyModal open={remove !== null}>
-          <DeleteTag tag={remove !== null ? tags[remove] : null} close={() => setRemove(null)} toggleChange={toggleChange}/>
-        </MyModal>
-        <MyModal open={edit !== null} >
-          <EditTag tag={edit !== null  ? tags[edit] : null} close={() => setEdit(null)} toggleChange={toggleChange}/>
+        <DeleteTag tag={tag ? tag[remove] : null} isRemove={isRemove} closeRemove={closeRemove} refresh={refresh} />
+        <MyModal open={isEdit} size="sm">
+          <EditTag tag={tag ? tag[edit] : null} closeEdit={closeEdit} refresh={refresh} />
         </MyModal>
       </div>
     </>

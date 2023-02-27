@@ -1,41 +1,37 @@
 import { Tooltip } from '@mantine/core';
-// import { colors } from "../data/old-colors";
-import colors from "../../data/colors"
 import { HiCheck } from "react-icons/hi"
+import LoadCircle from '../ui/LoadCircle';
+import NoBox from '../ui/NoBox';
 
-function ColorSelect({ data, currentColor, setColor }) {
+function ColorSelect({ currentColor, setColor, data, loading, design }) {
+  if (!data || loading) {
+    return <LoadCircle />
+  }
+  if (data.length === 0) {
+    return <NoBox text="No colors" />
+  }
   return (
     <>
-      <div className="flexbox-row flex-wrap full-width" style={{ justifyContent: "center"}}>
-        
+      <div className="flexbox-row-start flex-wrap space-between" style={{ gap: 6 }}>
         {
-          data.map((color,i) => {
-            
-            const selected = currentColor?.name === color
-
-            const { hex, dark } = colors[color]
-
-            return(
+          data.map((color, i) => {
+            const { id, name, hex, dark } = color
+            const selected = design ? currentColor?.id === id : currentColor === id
+            return (
               <>
-                <Tooltip label={color.replace(/\b[A-Z][A-Za-z]*\b/g,  (x) => x[0]+ x.slice(1).toLowerCase())}>
-                  <button 
-                    key={i}
-                    onClick={() => setColor({
-                      name: color,
-                      hex: hex,
-                      dark: dark
-                    })}
-                    className="flexbox shadow2" 
-                    style={{ borderRadius: 20, margin: "5px", backgroundColor: hex, width: 40, height: 40, outline: !selected ? "none" : dark ? "3px solid white" : "3px solid black"}}
+                <Tooltip key={i} label={name.replace(/\b[A-Z][A-Za-z]*\b/g, (x) => x[0] + x.slice(1).toLowerCase())}>
+                  <button
+                    onClick={selected ? () => setColor(null) : () => setColor(design ? color : id)}
+                    className="flexbox shadow2"
+                    style={{ borderRadius: 20, backgroundColor: hex, width: 40, height: 40, outline: !selected ? "none" : dark ? "3px solid white" : "3px solid black" }}
                   >
-                    { selected && <HiCheck key={i} style={{ fontSize: 28, fill: dark ? "white" : "black"}} />}
-                    {/* { selected && <HiCheck key={i} style={{ fontSize: 25, fill: light ? "black" : "white"}} />} */}
+                    {selected && <HiCheck key={i} style={{ fontSize: 28, fill: dark ? "white" : "black" }} />}
                   </button>
                 </Tooltip>
               </>
             )
           })
-        } 
+        }
       </div>
     </>
   );

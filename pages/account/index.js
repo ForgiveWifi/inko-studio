@@ -61,25 +61,25 @@ function Account() {
       }
       catch (err) {
         console.log(err)
-        showError("account", "Server error: account", "Contact Us!")
+        showError("account", "Server error: account", "Contact us!")
       }
     }
-  },[])
+  }, [])
 
   async function edit() {
     try {
       showLoading("shipping", null, "Saving...")
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/account`, { 
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/account`, {
         // address: address,
-        shipping: shipping, 
+        shipping: shipping,
         metadata: account
       })
       setAccountRef(account)
       setShippingRef(shipping)
-      updateSuccess("shipping", null, "Changes has been saved!") 
+      updateSuccess("shipping", null, "Changes has been saved!")
     }
     catch (err) {
-      updateError("shipping", null, "Problem saving.  Contact us!") 
+      updateError("shipping", null, "Problem saving.  Contact us!")
     }
   }
 
@@ -90,50 +90,50 @@ function Account() {
 
   return (
     <>
-      { loading ? <Loading /> : null}
+      <Loading loading={loading} />
       {
-        user && 
+        user &&
         <div className="flexbox-column-start full-width">
           <Heading text="Account" />
           <div className="flexbox-row" style={{ marginBottom: 15 }}>
-            <h5 style={{ marginRight: 15}}>email:</h5>
+            <h5 style={{ marginRight: 15 }}>email:</h5>
             <div>{user.email}</div>
           </div>
-          <div style={{maxWidth: 250}}>
-          
-          <TextInput 
-            label="first name"
-            value={account.first_name}
-            onChange={(e) => setAccount({...account, first_name: e.currentTarget.value})}
-            error={false}
-            autoComplete="off"
-          />
-          <TextInput 
-            label="last name"
-            value={account.last_name}
-            onChange={(e) => setAccount({...account, last_name: e.currentTarget.value})}
-            error={false}
-            autoComplete="off"
-          />
-          <TextInput
-            label="company"
-            value={account.company}
-            onChange={(e) => setAccount({...account, company: e.currentTarget.value})}
-            error={false}
-            autoComplete="off"
-          />
+          <div style={{ maxWidth: 250 }}>
+
+            <TextInput
+              label="first name"
+              value={account.first_name}
+              onChange={(e) => setAccount({ ...account, first_name: e.currentTarget.value })}
+              error={false}
+              autoComplete="off"
+            />
+            <TextInput
+              label="last name"
+              value={account.last_name}
+              onChange={(e) => setAccount({ ...account, last_name: e.currentTarget.value })}
+              error={false}
+              autoComplete="off"
+            />
+            <TextInput
+              label="company"
+              value={account.company}
+              onChange={(e) => setAccount({ ...account, company: e.currentTarget.value })}
+              error={false}
+              autoComplete="off"
+            />
           </div>
-          <h3 style={{ marginTop: 30}}>Shipping Address</h3>
+          <h3 style={{ marginTop: 30 }}>Shipping Address</h3>
           <AddressForm shipping={shipping} setShipping={setShipping} error={false} />
           {/* <h2>Address</h2>
           <AddressForm shipping={address} setShipping={setAddress} error={error} /> */}
-          <h3 style={{ marginTop: 30}}>Shipping Provider</h3>
-          <ShippingSelect value={account.shipping_provider}  onChange={(v) => setAccount({...account, shipping_provider: v})}/>
+          <h3 style={{ marginTop: 30 }}>Shipping Provider</h3>
+          <ShippingSelect value={account.shipping_provider} onChange={(v) => setAccount({ ...account, shipping_provider: v })} />
           <div style={{ height: 100 }}>
-          {
-            save &&
-            <EditButtons cancel={revert} edit={edit}/>
-          }
+            {
+              save &&
+              <EditButtons cancel={revert} edit={edit} />
+            }
           </div>
         </div>
       }

@@ -6,9 +6,9 @@
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-	html {
-		scroll-behavior: auto;
-	}
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 * {
@@ -17,11 +17,10 @@
   margin: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  
 }
 
 html {
-	scroll-behavior: smooth;
+  scroll-behavior: smooth;
   background-color: rgb(115, 115, 115)
 }
 
@@ -72,6 +71,22 @@ button:hover {
   cursor: pointer;
 }
 
+img {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute
+}
+
 .label {
   color: #FF9244;
   font-size: 14px;
@@ -82,9 +97,14 @@ button:hover {
   top: 1px;
 }
 
+.input-label {
+  font-size: 14;
+  margin-top: 5;
+}
+
 .rainbow {
-  -webkit-background-image:  radial-gradient(circle, rgba(255,84,34,1) 0%, rgba(254,155,0,1) 20%, rgba(79,255,219,1) 40%, rgba(116,178,255,1) 60%, rgba(137,121,255,1) 80%, rgba(255,117,246,1) 97%);
-  background-image: radial-gradient(circle, rgb(94, 215, 191) 5%, rgba(116,178,255,1) 25%, rgb(148, 134, 253) 50%, rgba(255,117,246,1) 75%, rgb(255, 99, 68) 95%);
+  -webkit-background-image: radial-gradient(circle, rgba(255, 84, 34, 1) 0%, rgba(254, 155, 0, 1) 20%, rgba(79, 255, 219, 1) 40%, rgba(116, 178, 255, 1) 60%, rgba(137, 121, 255, 1) 80%, rgba(255, 117, 246, 1) 97%);
+  background-image: radial-gradient(circle, rgb(94, 215, 191) 5%, rgba(116, 178, 255, 1) 25%, rgb(148, 134, 253) 50%, rgba(255, 117, 246, 1) 75%, rgb(255, 99, 68) 95%);
   background-size: 3000%;
   -webkit-animation: bg-animation 30s linear infinite;
   animation: bg-animation 30s linear infinite;
@@ -137,9 +157,8 @@ button:hover {
 }
 
 .orange-background {
-  -webkit-background-color:  #FF9244;
+  -webkit-background-color: #FF9244;
   background-color: #FF9244;
-  /* background-color: black; */
 }
 
 .white-background {
@@ -148,12 +167,12 @@ button:hover {
 }
 
 .grey-background {
-  -webkit-background-color:  rgb(107, 116, 130);
+  -webkit-background-color: rgb(107, 116, 130);
   background-color: rgb(107, 116, 130);
 }
 
-.red-background{
-  -webkit-background-color:  rgb(253, 81, 81);
+.red-background {
+  -webkit-background-color: rgb(253, 81, 81);
   background-color: rgb(253, 81, 81);
 }
 
@@ -171,9 +190,9 @@ button:hover {
 
 .orange-text {
   color: #FF9244
-} 
+}
 
-.white-border{
+.white-border {
   border: 3px solid white
 }
 
@@ -212,7 +231,7 @@ button:hover {
 
 .flexbox-row-start {
   display: flex;
-  align-items: flex-start
+  justify-content: flex-start
 }
 
 .flexbox-row-end {
@@ -223,7 +242,7 @@ button:hover {
 .flexbox-column-start {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .flexbox-column-end {
@@ -280,6 +299,10 @@ button:hover {
   margin-left: auto
 }
 
+.padding10 {
+  padding: 10px
+}
+
 .padding15 {
   padding: 15px
 }
@@ -315,7 +338,7 @@ button:hover {
   margin: 8px
 }
 
-.product-grid{
+.product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
@@ -357,18 +380,19 @@ button:hover {
 
 
 
-.mantine-Modal-modal{
+.mantine-Modal-modal {
   background-color: #FF9244;
 }
 
-.mantine-Input-input{
+.mantine-Input-input {
   color: rgba(0, 0, 0, 0.6)
 }
 
 .mantine-TextInput-label {
   color: white;
 }
-.mantine-TextInput-input{
+
+.mantine-TextInput-input {
   color: rgba(0, 0, 0, 0.6);
   border: 1.5px solid white;
   border-radius: 8px;
@@ -377,33 +401,30 @@ button:hover {
 .mantine-TextInput-input:focus {
   border: 1.5px solid rgba(0, 0, 0, 0.6);
 }
+
 .mantine-TextInput-invalid {
   border: 1.5px solid red
 }
 
 
 
-.mantine-NumberInput-label{
+.mantine-NumberInput-label {
   color: white;
 }
+
 .mantine-NumberInput-input {
   width: 90px;
   border: 1.5 solid white;
   color: rgb(79, 87, 98);
   border-radius: 5px;
 }
+
 .mantine-NumberInput-invalid {
   border: 1.5px solid red
 }
+
 .mantine-NumberInput-control {
   background-color: rgb(107, 116, 130);
-}
-.mantine-NumberInput-controlUp {
-  border-bottom: 0.5px solid white;
-  border-left: 0.5px solid white;
-}
-.mantine-NumberInput-controlDown{
-  border-left: 0.5px solid white;
 }
 
 
@@ -416,11 +437,16 @@ button:hover {
 }
 
 .mantine-FileInput-input:focus {
-  border: 2px solid white
+  border: 1px solid white
 }
 
 .mantine-FileInput-placeholder {
-  color:white;
+  color: white;
+}
+
+
+.mantine-Textarea-label {
+  color: white
 }
 
 
@@ -428,22 +454,27 @@ button:hover {
 .mantine-Select-label {
   color: white
 }
-.mantine-Select-item{
+
+.mantine-Select-item {
   color: rgba(0, 0, 0, 0.6);
 }
-.mantine-Select-rightSection{
-  /* background-color: transparent; */
-}
-.mantine-Select-input{
+
+.mantine-Select-input {
   color: rgba(0, 0, 0, 0.6);
   border: 1.5px solid white;
   border-radius: 8px;
 }
-.mantine-Select-input:focus{
+
+.mantine-Select-input:focus {
   border: 1.5px solid rgba(0, 0, 0, 0.6);
 }
+
 .mantine-Select-invalid {
   border: 1.5px solid red
+}
+
+.mantine-ColorInput-label {
+  color: white
 }
 
 
@@ -452,16 +483,20 @@ button:hover {
   border-color: white;
   border-radius: 8px;
 }
-.mantine-MultiSelect-item{
+
+.mantine-MultiSelect-item {
   color: rgb(107, 116, 130)
 }
+
 .mantine-MultiSelect-defaultValue {
   background-color: rgb(107, 116, 130);
   border-radius: 30px;
 }
+
 .mantine-MultiSelect-label {
   color: white
 }
+
 .mantine-MultiSelect-invalid {
   border: 1.5px solid red;
 }
@@ -473,6 +508,7 @@ button:hover {
   border-radius: 8px;
   transition: 0.2s;
 }
+
 .mantine-Button-root:hover {
   background-color: rgba(255, 255, 255, 0.35);
 }

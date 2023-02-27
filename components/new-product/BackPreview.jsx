@@ -1,44 +1,42 @@
 import SingleImage from "./SingleImage";
 
-function BackPreview({list, sku, color, pallet, selectFromList, noImage, zIndex }) {
+function BackPreview({ back, sku, color, pallet, selectFromList, noImage, zIndex }) {
 
-  const { width, height, offset } = pallet
+  const { width, height, back_image, back_offset } = pallet
 
   return (
-    <>  
-      <div id="back-preview" className="flexbox" style={{ position: "absolute", zIndex: zIndex, width: 650, height: 650}}>
-        <div className="radius10" style={{ position: "absolute", backgroundColor: color?.hex || "white", width: "650px", height: "650px"}}></div>
-          {
-            sku ? 
-            <img 
-              src={`/back-${sku}.png`} 
-              alt="back-blank-tee" className="radius10" 
-              style={{ position: "absolute", width: 650, height: 650 }} 
-              draggable="false" 
+    <>
+      <div id="back-preview" className="flexbox" style={{ position: "absolute", zIndex: zIndex, width: 650, height: 650 }}>
+        <div className="radius10" style={{ position: "absolute", backgroundColor: color?.hex || "white", width: "649px", height: "649px" }}></div>
+        {
+          sku ?
+            <img
+              src={sku !== "3001" ? back_image : `/back-${sku}.png`}
+              alt="back-blank-tee" className="radius10"
+              style={{ position: "absolute", width: 650, height: 650 }}
+              draggable="false"
             /> :
             null
-          }
-          <div 
-            className="flexbox radius5"
-            style={{ 
-            position: "relative", 
-            bottom: offset.back,
-            width: width * 20, 
-            height: height * 20, 
+        }
+        <div
+          className="flexbox radius5"
+          style={{
+            position: "relative",
+            bottom: back_offset,
+            width: width * pallet.scale,
+            height: height * pallet.scale,
             zIndex: 40,
           }}>
           {
-            list.map((image, i) => {
-              if (image.placement === "front") {
-                return null
-              }
-              return(
-                <SingleImage key={i} image={image} onClick={() => selectFromList(i)} noImage={noImage} dark={color?.dark} />
+            back.map((image, i) => {
+              const { art_file } = image
+              return (
+                <SingleImage key={art_file instanceof File ? art_file.name : art_file} image={image} onClick={() => selectFromList(i)} noImage={noImage} dark={color?.dark} />
               )
             })
           }
         </div>
-      </div> 
+      </div>
     </>
   );
 }

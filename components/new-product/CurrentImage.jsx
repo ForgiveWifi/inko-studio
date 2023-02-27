@@ -1,3 +1,4 @@
+import { usePrevious } from "@mantine/hooks"
 import { useEffect, useRef, useState } from "react"
 import { Rnd } from "react-rnd"
 import { scale } from "../../lib/functions"
@@ -9,13 +10,12 @@ function CurrentImage({ currentImage, setCurrentImage, pallet, dark }) {
   const ref = useRef(0)
   const [dragOutline, setDragOutline] = useState(false)
   const [loaded, setLoaded] = useState(false)
-  
-  const {art_file, art_url, width, height, x_offset, y_offset, placement } = currentImage
+  const { art_file, art_url, width, height, x_offset, y_offset, placement } = currentImage
 
-  const pallet_width = pallet.width * 20
+  const pallet_width = pallet.width * pallet.scale
 
   useEffect(() => {
-    if (!currentImage.width && ref.current) {
+    if (!width && ref.current) {
       const w = ref.current.width
       const h = ref.current.height
 
@@ -23,12 +23,16 @@ function CurrentImage({ currentImage, setCurrentImage, pallet, dark }) {
 
       setCurrentImage({
         ...currentImage,
-        width: (w * ratio), 
+        width: (w * ratio),
         height: (h * ratio),
-        x_offset: (pallet_width - w * ratio ) / 2
+        x_offset: (pallet_width - w * ratio) / 2
       })
     }
   }, [loaded])
+
+  // useEffect(() => {
+  //   setLoaded(false)
+  // }, [art_file])
 
   // useEffect(() => {
   //   function handleArrows(event) {
@@ -81,14 +85,14 @@ function CurrentImage({ currentImage, setCurrentImage, pallet, dark }) {
 
   return (
     <>
-      <div 
+      <div
         className="flexbox radius5"
-        style={{ 
-          position: "relative", 
-          bottom: pallet.offset[placement],
-          outline: dragOutline ? `2px dotted ${dark ? "white": "black" }` : null, 
-          width: pallet.width * 20, 
-          height: pallet.height * 20, 
+        style={{
+          position: "relative",
+          bottom: placement === "front" ? pallet.front_offset : pallet.back_offset,
+          outline: dragOutline ? `2px dotted ${dark ? "white" : "black"}` : null,
+          width: pallet.width * pallet.scale,
+          height: pallet.height * pallet.scale,
           zIndex: 40
         }}
       >
@@ -115,12 +119,12 @@ function CurrentImage({ currentImage, setCurrentImage, pallet, dark }) {
           minHeight={loaded ? 20 : 0}
           enableResizing={{ top: false, bottom: false, left: false, right: false, topRight: true, topLeft: true, bottomRight: true, bottomLeft: true }}
           resizeHandleComponent={{
-            topRight: <ResizeBox dark={dark}/>,
+            topRight: <ResizeBox dark={dark} />,
             topLeft: <ResizeBox dark={dark} />,
-            bottomRight: <ResizeBox dark={dark}/>,
-            bottomLeft: <ResizeBox dark={dark}/>
+            bottomRight: <ResizeBox dark={dark} />,
+            bottomLeft: <ResizeBox dark={dark} />
           }}
-          onDragStart={() => setDragOutline(true) }
+          onDragStart={() => setDragOutline(true)}
           onResizeStart={() => setDragOutline(true)}
           style={{
             display: "flexbox",
@@ -131,11 +135,11 @@ function CurrentImage({ currentImage, setCurrentImage, pallet, dark }) {
           <img
             ref={ref}
             draggable="false"
-            src={ art_file instanceof File ? URL.createObjectURL(art_file) : art_url }
-            alt={ art_file instanceof File ? art_file.name : art_file}
+            src={art_file instanceof File ? URL.createObjectURL(art_file) : art_url}
+            alt={art_file instanceof File ? art_file.name : art_file}
             onLoad={() => setLoaded(true)}
             className="full-width full-height"
-            style={{display: loaded ? null: "none"}}
+            style={{ display: loaded ? null : "none" }}
           />
         </Rnd>
       </div>
@@ -143,4 +147,4 @@ function CurrentImage({ currentImage, setCurrentImage, pallet, dark }) {
   )
 }
 
-  export default CurrentImage
+export default CurrentImage

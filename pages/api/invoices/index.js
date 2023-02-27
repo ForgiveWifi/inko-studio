@@ -3,17 +3,17 @@ import errorMessage from "../../../lib/errorMesage"
 import getStripeID from "../../../lib/getStripeID"
 import stripe from "../../../lib/stripe"
 
-async function handler(req,res) {
+async function handler(req, res) {
 
   const { method } = req
-  const stripe_id = await getStripeID(req,res)
+  const stripe_id = await getStripeID(req, res)
 
   switch (method) {
     case 'GET':
       try {
         const limit = parseInt(req.query.limit)
         const { starting_after, ending_before } = req.query
-        
+
         const query = {
           customer: stripe_id,
           limit: limit,

@@ -18,7 +18,7 @@ function Design() {
 
   return (
     <>
-      <div className="flexbox-row flex-wrap" style={{ display: "flex", justifyContent: "flex-start", gap: '20px', margin: "30px 0px 0px" }}>
+      <div className="flexbox-row flex-wrap" style={{ display: "flex", justifyContent: "flex-start", gap: '20px', margin: "30px 0px 50px" }}>
         <div className={center ? "flexbox-column" : "flexbox-start"} style={{ margin: "15px auto 0px" }}>
 
           <motion.div
@@ -26,13 +26,13 @@ function Design() {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-          > 
+          >
             <h1 className={center ? "text-center" : ""}>design</h1>
             <div
-            className="full-width"
-            style={{ maxWidth: "405px", marginTop: "15px" }}
+              className="full-width"
+              style={{ maxWidth: "405px", marginTop: "15px" }}
             >
-              <p className={center ? "text-center" : ""} style={{ maxWidth: 380, marginBottom: 15}}>Use our online design tool to create your own products or we offer consultation services that provide you with custom designs that can be printed on your merchandise. </p>
+              <p className={center ? "text-center" : ""} style={{ maxWidth: 380, marginBottom: 15 }}>Use our online design tool to create your own products or we offer consultation services that provide you with custom designs that can be printed on your merchandise. </p>
 
               <p className={center ? "text-center" : ""} style={{ marginTop: "10px" }}>Our goal is to provide an interactive design process that ensures every project meets their needs and expectations, and you are left with a seamless experience of turning your concepts into reality.  Contact us today to learn more about our services and get started on your project.</p>
             </div>
@@ -76,15 +76,15 @@ function Design() {
           </motion.div>
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="flexbox margin-auto" 
-          style={{ position: "relative", maxWidth: 375, marginBottom: "auto"}}
+          className="flexbox margin-auto"
+          style={{ position: "relative", maxWidth: 375, marginBottom: "auto" }}
         >
-          <img src="design_and_art.jpg" alt="Design and Art" className='full-width orange-shadow'/>
+          <img src="design_and_art.jpg" alt="Design and Art" className='full-width orange-shadow' />
         </motion.div>
 
       </div>

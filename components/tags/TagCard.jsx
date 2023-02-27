@@ -6,25 +6,29 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import TagDisplay from "./TagDisplay";
 import Divider from "../ui/Divider";
 import TagMenu from "./TagMenu";
+import PalletDimensions from "../ui/PalletDimensions";
 
-function TagCard({tag, remove, edit}) {
+function TagCard({ tag, openEdit, openRemove }) {
+  if (!tag) {
+    return null
+  }
 
-  const {size, design, pallet} = tag
+  const { design, tags } = tag
+  const { size_id, pallet } = tags
 
   return (
     <>
       <div className="flexbox-column background3 white-border radius10 full-width flex-wrap" style={{ padding: 10 }}>
-       
         <div className="flexbox-row full-width">
           <div className="flexbox-row">
-            <h3 style={{marginLeft: 8}}>{size}</h3>
+            <h3 style={{ marginLeft: 8 }}>{size_id}</h3>
             <Divider />
-            <h5>{pallet}</h5>
+            <PalletDimensions pallet={pallet} />
           </div>
           <div className="margin-left">
-            <TagMenu size={size} remove={remove} edit={edit}/>
+            <TagMenu remove={openRemove} edit={openEdit} />
           </div>
-        </div> 
+        </div>
         <HorzDivider margin="10px 0px" />
         <TagDisplay design={design} />
       </div>

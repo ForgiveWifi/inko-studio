@@ -1,30 +1,37 @@
-import sortSizes from "../../lib/sortSizes";
+import NoBox from "../ui/NoBox";
+import LoadCircle from "../ui/LoadCircle"
 
-function SizeSelect({sizes, setSizes, sizeOptions}) {
+function SizeSelect({ sizes, setSizes, data }) {
+  if (!data) {
+    return <LoadCircle />
+  }
+  if (data.length === 0) {
+    return <NoBox text="No Sizes" />
+  }
   return (
     <>
-      <div className="flexbox-row-start flex-wrap" style={{ gap: "8px", marginTop: '5px'}}> 
-      {
-        sizeOptions.map((size,i) => {
+      <div className="flexbox-row-start full-width flex-wrap" style={{ gap: 8 }}>
+        {
+          data.map((item, i) => {
 
-          const selected = sizes.includes(size)
+            const selected = sizes.includes(item)
 
-          function select() {
-            if (selected) {
-              setSizes(sizes.filter(item => item !== size))
-            } 
-            else {
-              setSizes(sortSizes([...sizes, size]))
+            function select() {
+              if (selected) {
+                setSizes(sizes.filter(size => size !== item))
+              }
+              else {
+                setSizes([...sizes, item].sort((a, b) => data.indexOf(a) - data.indexOf(b)))
+              }
             }
-          }
 
-          return(
-            <button key={i} onClick={select} className={selected ? "background2 radius5" : "background1 radius5"} style={{ padding: "3px 20px", outline: selected ? "2px solid white" : "none"}}>
-              <h4>{size.toUpperCase()}</h4>
-            </button>
-           )
-        })
-      }
+            return (
+              <button key={i} onClick={select} className={selected ? "background2 radius5" : "background1 radius5"} style={{ padding: "3px 20px", outline: selected ? "2px solid white" : "none" }}>
+                <h4>{item.toUpperCase()}</h4>
+              </button>
+            )
+          })
+        }
       </div>
     </>
   );

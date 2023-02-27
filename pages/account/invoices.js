@@ -20,22 +20,22 @@ function Invoices() {
   const [selected, setSelected] = useState(null)
   const [hasMore, setHasMore] = useState(null)
   const [loading, setLoading] = useState(false)
-  
-  const {page, starting_after, ending_before } = router.query
+
+  const { page, starting_after, ending_before } = router.query
 
   useEffect(() => {
-    fetchInvoices() 
+    fetchInvoices()
     async function fetchInvoices() {
       try {
         setLoading(true)
         const params = starting_after ? `&starting_after=${starting_after}` : ending_before ? `&ending_before=${ending_before}` : ""
-        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/invoices?limit=8${params}`) 
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/invoices?limit=8${params}`)
         setInvoices(data.data)
-        setHasMore(data.has_more) 
+        setHasMore(data.has_more)
         setLoading(false)
       }
       catch (err) {
-        showError("invoices", "Server error - invoices", "Contact us!") 
+        showError("invoices", "Server error - invoices", "Contact us!")
       }
     }
   }, [router.query])
@@ -50,52 +50,52 @@ function Invoices() {
 
   const modal = selected !== null
 
-  const orange = {fill: "#FF9244"}
+  const orange = { fill: "#FF9244" }
   const box = { width: 30, height: 30 }
 
   return (
     <>
       <MyModal open={modal} size="xl">
         {
-          modal ? 
-          <>
-            <CloseButton onClick={() => setSelected(null)} />
-            <InvoiceDisplay invoice={invoices[selected]}/>
-          </> :
-          null
+          modal ?
+            <>
+              <CloseButton onClick={() => setSelected(null)} />
+              <InvoiceDisplay invoice={invoices[selected]} />
+            </> :
+            null
         }
       </MyModal>
-      <div className="flexbox-row full-width"> 
+      <div className="flexbox-row full-width">
         <Heading text="Invoices" />
-        <button onClick={() => router.push("invoices?page=1")} className="flexbox white-background radius5 margin-right" style={{ width: 35, height: 35, marginTop: "auto", marginBottom: 10}}>
+        <button onClick={() => router.push("invoices?page=1")} className="flexbox white-background radius5 margin-right" style={{ width: 35, height: 35, marginTop: "auto", marginBottom: 10 }}>
           <RefreshIcon style={orange} />
         </button>
       </div>
       <InvoicesHeading />
-      <InvoiceList loading={loading} invoices={invoices} setSelected={setSelected}/>
+      <InvoiceList loading={loading} invoices={invoices} setSelected={setSelected} />
       <div className="flexbox full-width" style={{ maxWidth: 300 }}>
         <div className='flexbox-row margin-auto' style={{ gap: 10, marginTop: 10 }}>
-          { 
-            starting_after || (ending_before && hasMore) ? 
-            <NavButton icon={<NavigateBeforeIcon style={orange}/>} onClick={() => lastPage()} /> :
-            <div style={box}></div>
+          {
+            starting_after || (ending_before && hasMore) ?
+              <NavButton icon={<NavigateBeforeIcon style={orange} />} onClick={() => lastPage()} /> :
+              <div style={box}></div>
           }
           <h4>Page: {page}</h4>
-          { 
-            ending_before || (starting_after && hasMore) || (!(starting_after && ending_before) && hasMore) ? 
-            <NavButton icon={<NavigateNextIcon style={orange} />} onClick={() => nextPage()} /> :
-            <div style={box}></div>
+          {
+            ending_before || (starting_after && hasMore) || (!(starting_after && ending_before) && hasMore) ?
+              <NavButton icon={<NavigateNextIcon style={orange} />} onClick={() => nextPage()} /> :
+              <div style={box}></div>
           }
         </div>
       </div>
     </>
   );
 
-  function NavButton({icon, onClick}) {
-    return(
+  function NavButton({ icon, onClick }) {
+    return (
       <button className="flexbox white-background max-radius" style={box} onClick={onClick}>
         {icon}
-      </button> 
+      </button>
     )
   }
 }
